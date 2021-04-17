@@ -1,13 +1,19 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link :to="{ name: 'product' }">Product</router-link> |
-      <router-link :to="{ name: 'product-detail', params: {id: 123} }">Detail</router-link> |
-      <router-link :to="{ name: 'cart' }">Cart</router-link> |
-    </div>
+    <Navbar />
     <router-view/>
   </div>
 </template>
+
+<script>
+import Navbar from './components/Navbar'
+
+export default {
+  components: {
+    Navbar
+  }
+}
+</script>
 
 <style>
 * {
