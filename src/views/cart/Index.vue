@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import { cartItems } from '../../data-seed'
+import axios from 'axios'
+// import { cartItems } from '../../data-seed'
 import ItemCart from '../../components/ItemCart'
 
 export default {
@@ -24,7 +25,7 @@ export default {
   },
   data() {
     return {
-      cartItems
+      cartItems: []
     }
   },
   computed: {
@@ -34,7 +35,20 @@ export default {
         0
       )
     }
+  },
+  async created() {
+    const result = await axios.get('http://localhost:8000/api/orders/user/2')
+    let data = Object.assign({}, 
+      ...(result.data.map(
+          result => ({ 
+            user_id: result.user_id,
+            cart_items: result.products, 
+          }) 
+      ))
+    );
+    this.cartItems = data.cart_items
   }
+
 }
 </script>
 
